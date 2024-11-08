@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paramètres</title>
+    <link rel="stylesheet" href="styles1.css">
+    <style>
+        .color-option {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            margin: 5px;
+            border: 2px solid transparent;
+            cursor: pointer;
+        }
+        .color-option.selected {
+            border: 2px solid white; /* Bordure blanche pour indiquer la sélection */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Bouton en haut à gauche -->
+    <div class="navbar">
+        <a href="index1.html" class="home-button">
+            <img src="https://img.icons8.com/ios-glyphs/30/ffffff/clock--v1.png" alt="Horloge">
+            Heure
+        </a>
+        <a href="alarm.html" class="home-button">
+            <img src="https://img.icons8.com/ios-glyphs/30/ffffff/alarm.png" alt="Alarme">
+            Alarme
+        </a>
+        <a href="#" class="home-button">
+            <img src="https://img.icons8.com/ios-glyphs/30/ffffff/settings.png" alt="Paramètres">
+            Paramètres
+        </a>
+    </div>
+
+    <div class="container">
+        <h1>Paramètres</h1>
+
+        <div class="setting-option">
+            <label>Choisir la couleur d'affichage de l'heure :</label><br>
+            <div id="colorOptions">
+                <div class="color-option" style="background-color: #87CEEB;" data-color="#87CEEB"></div>
+                <div class="color-option" style="background-color: #FF6347;" data-color="#FF6347"></div>
+                <div class="color-option" style="background-color: #32CD32;" data-color="#32CD32"></div>
+                <div class="color-option" style="background-color: #FFD700;" data-color="#FFD700"></div>
+                <div class="color-option" style="background-color: #8A2BE2;" data-color="#8A2BE2"></div>
+                <div class="color-option" style="background-color: #FF69B4;" data-color="#FF69B4"></div>
+                <div class="color-option" style="background-color: #00BFFF;" data-color="#00BFFF"></div>
+                <div class="color-option" style="background-color: #FF4500;" data-color="#FF4500"></div>
+                <div class="color-option" style="background-color: #D2691E;" data-color="#D2691E"></div>
+                <div class="color-option" style="background-color: #1E90FF;" data-color="#1E90FF"></div>
+            </div>
+        </div>
+
+        <button id="saveSettingsButton">Enregistrer les paramètres</button>
+        <p id="settingsStatus"></p>
+    </div>
+
+   <!-- <script src="script1.js"></script> -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const colorOptions = document.querySelectorAll('.color-option');
+            const settingsStatus = document.getElementById('settingsStatus');
+
+            // Charger les paramètres existants
+            const settings = JSON.parse(localStorage.getItem('settings')) || {
+                color: '#87CEEB' // Couleur par défaut
+            };
+
+            // Sélectionner la couleur enregistrée
+            colorOptions.forEach(option => {
+                if (option.getAttribute('data-color') === settings.color) {
+                    option.classList.add('selected');
+                }
+                option.addEventListener('click', function() {
+                    colorOptions.forEach(opt => opt.classList.remove('selected')); // Retirer la sélection
+                    option.classList.add('selected'); // Ajouter la sélection à la couleur choisie
+                });
+            });
+
+            // Enregistrer les paramètres au clic du bouton
+            document.getElementById('saveSettingsButton').addEventListener('click', () => {
+                const selectedColor = document.querySelector('.color-option.selected')?.getAttribute('data-color') || settings.color;
+                const newSettings = {
+                    color: selectedColor
+                };
+                localStorage.setItem('settings', JSON.stringify(newSettings));
+                settingsStatus.textContent = "Paramètres enregistrés avec succès!";
+            });
+        });
+    </script>
+</body>
+</html>

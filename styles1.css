@@ -1,0 +1,162 @@
+/* Styles globaux */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Arial', sans-serif;
+    color: white;
+    background: url('Fond_Planete.jpg') no-repeat center center fixed;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; /* Permet de gérer l'alignement vertical */
+}
+
+/* Style pour le bouton en haut à gauche */
+.navbar {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    flex-direction: column; /* Alignement vertical des boutons */
+    gap: 10px; /* Espacement entre les boutons */
+}
+
+.home-button {
+    display: flex;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    margin: 10px; /* Ajouter un espace autour des boutons */
+}
+
+.home-button img {
+    margin-right: 10px;
+}
+
+.home-button:hover {
+    background-color: rgba(0, 0, 0, 0.9);
+    transform: scale(1.05);
+}
+
+/* Style pour le conteneur */
+.container {
+    text-align: center; /* Centrer le texte à l'intérieur du conteneur */
+    background: rgba(0, 0, 0, 0.5); /* Fond plus foncé et discret */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+    position: relative;
+    top: -20%; /* Remonté plus haut sur l'écran */
+    display: flex; /* Utiliser Flexbox */
+    flex-direction: column; /* Orientation en colonne */
+    align-items: center; /* Centrer horizontalement */
+    justify-content: center; /* Centrer verticalement */
+    min-height: 80vh; /* S'assurer qu'il prend un peu de hauteur */
+}
+
+/* Style pour l'heure et la date */
+.hour {
+    font-size: 140px; /* Agrandir l'heure */
+    margin: 20px 0; 
+    color: #87CEEB; /* Bleu ciel doux */
+    text-shadow: 1px 1px 5px rgba(135, 206, 235, 0.5);
+}
+
+#currentDate {
+    font-size: 36px; /* Taille de la date */
+    margin-bottom: 40px; /* Espace en dessous de la date pour remonter */
+    color: #FFFFFF;
+}
+
+/* Style pour les sélecteurs d'heure et de minute */
+.time-selector {
+    display: flex; /* Utiliser flexbox pour aligner les éléments sur la même ligne */
+    align-items: center; /* Aligner verticalement les éléments */
+    margin: 20px 0; /* Espace au-dessus et en dessous de la ligne */
+    justify-content: center; /* Centrer les éléments sur la ligne */
+}
+
+.time-selector label {
+    margin-right: 10px; /* Espace entre les labels et les sélecteurs */
+}
+
+.time-selector select {
+    margin-right: 20px; /* Espace entre les sélecteurs */
+    font-size: 24px; /* Taille des options */
+}
+
+/* Positionner le texte "Heure actuelle" plus haut */
+#currentTimeLabel {
+    font-size: 36px; /* Taille de l'étiquette "Heure actuelle" */
+    margin-bottom: 10px; /* Ajuste l'espace en dessous de l'étiquette */
+    color: #FFFFFF;
+}
+
+/* Style pour le bouton de définir l'alarme */
+#setAlarmButton {
+    margin-top: 20px; /* Espace au-dessus du bouton */
+    margin-bottom: 40px; /* Espace en dessous du bouton */
+    padding: 10px 20px; /* Ajuster le rembourrage pour un meilleur aspect */
+    font-size: 20px; /* Augmenter la taille de la police pour plus de visibilité */
+    background-color: #87CEEB; /* Couleur de fond pour le bouton */
+    color: white; /* Couleur du texte */
+    border: none; /* Supprimer la bordure par défaut */
+    border-radius: 5px; /* Coins arrondis */
+    cursor: pointer; /* Changer le curseur au survol */
+    transition: background-color 0.3s; /* Transition pour l'effet au survol */
+}
+
+#setAlarmButton:hover {
+    background-color: #007BFF; /* Couleur au survol */
+}
+
+/* Styles pour la liste des alarmes */
+.alarm-list-container {
+    position: fixed; /* Fixe la position en bas à gauche */
+    bottom: 20px; /* Espace depuis le bas de l'écran */
+    left: 20px; /* Espace depuis le côté gauche */
+    background-color: rgba(0, 0, 0, 0.7); /* Fond semi-transparent */
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    max-width: 250px;
+}
+
+.alarm-list-container h2 {
+    font-size: 24px;
+    margin: 0 0 10px; /* Enlève le margin en haut, ajoute en bas */
+    color: #FFFFFF;
+}
+
+#alarmList {
+    list-style-type: none; /* Supprime les puces de liste */
+    padding: 0; /* Enlève le padding par défaut */
+    max-height: 200px; /* Limite la hauteur pour éviter de déborder */
+    overflow-y: auto; /* Barre de défilement si nécessaire */
+}
+
+#alarmList li {
+    padding: 5px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Lignes séparatrices */
+    font-size: 18px;
+}
+
+#alarmList li:last-child {
+    border-bottom: none; /* Enlève la ligne du dernier élément */
+}
+
+
+/* Effets généraux */
+body::before {
+    content: "";
+    display: none; /* Supprimer le fond transparent sur les côtés */
+}

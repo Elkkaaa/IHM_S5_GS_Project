@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alarme</title>
+    <link rel="stylesheet" href="styles1.css">
+</head>
+<body>
+
+    <!-- Bouton en haut à gauche -->
+    <div class="navbar">
+        <a href="index1.html" class="home-button">
+            <img src="https://img.icons8.com/ios-glyphs/30/ffffff/clock--v1.png" alt="Horloge">
+            Heure
+        </a>
+        <a href="#" class="home-button">
+            <img src="https://img.icons8.com/ios-glyphs/30/ffffff/alarm.png" alt="Alarme">
+            Alarme
+        </a>
+        <!-- Bouton Paramètre -->
+        <a href="settings.html" class="home-button">
+            <img src="https://img.icons8.com/ios-glyphs/30/ffffff/settings.png" alt="Paramètres">
+            Paramètres
+        </a>
+    </div>
+
+    <div class="container">
+        <p class='hour' id="clock">--:--:--</p> <!-- Heure affichée sans "Heure actuelle :" -->
+
+        <!-- Sélecteurs d'heure et de minute sur la même ligne -->
+        <div class="time-selector">
+            <label for="hourSelect">Heure :</label>
+            <select id="hourSelect">
+                <!-- Options pour l'heure -->
+                <script>
+                    for (let i = 0; i < 24; i++) {
+                        document.write(`<option value="${String(i).padStart(2, '0')}">${String(i).padStart(2, '0')}</option>`);
+                    }
+                </script>
+            </select>
+
+            <label for="minuteSelect">Minutes :</label>
+            <select id="minuteSelect">
+                <!-- Options pour les minutes -->
+                <script>
+                    for (let i = 0; i < 60; i++) {
+                        document.write(`<option value="${String(i).padStart(2, '0')}">${String(i).padStart(2, '0')}</option>`);
+                    }
+                </script>
+            </select>
+        </div>
+
+        <div id="daysOfWeek">
+            <label>Choisissez les jours de l'alarme :</label><br> <!-- Saut de ligne ajouté -->
+            <label><input type="checkbox" value="Lundi"> Lundi</label>
+            <label><input type="checkbox" value="Mardi"> Mardi</label>
+            <label><input type="checkbox" value="Mercredi"> Mercredi</label>
+            <label><input type="checkbox" value="Jeudi"> Jeudi</label>
+            <label><input type="checkbox" value="Vendredi"> Vendredi</label>
+            <label><input type="checkbox" value="Samedi"> Samedi</label>
+            <label><input type="checkbox" value="Dimanche"> Dimanche</label>
+            <!--<label><input type="checkbox" id="everyDayCheckbox"> Tous les jours</label>-->
+        </div>
+
+        <!-- Réglage du volume avec le logo du haut-parleur à côté -->
+        <label for="volumeControl" style="display: flex; align-items: center; margin-top: 20px;">
+            <img src="https://img.icons8.com/ios-glyphs/50/ffffff/speaker.png" alt="Haut-parleur" style="margin-right: 10px;">
+            Volume de l'alarme :
+        </label>
+        <input type="range" id="volumeControl" min="0" max="1" step="0.01" value="0.5">
+        
+        <button id="setAlarmButton" onclick="setAlarm()">Définir l'Alarme</button>
+        <p id="alarmStatus"></p>
+    </div>
+
+  
+    <script>
+        // Appel de la fonction pour mettre à jour l'heure au chargement de la page
+        setInterval(updateClock, 1000); // Mettre à jour l'heure toutes les secondes
+
+        // Cocher/décocher tous les jours
+        const everyDayCheckbox = document.getElementById('everyDayCheckbox');
+        const checkboxes = document.querySelectorAll('#daysOfWeek input[type="checkbox"]:not(#everyDayCheckbox)');
+
+        everyDayCheckbox.addEventListener('change', function() {
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = everyDayCheckbox.checked;
+            });
+        });
+
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                if (!checkbox.checked) {
+                    everyDayCheckbox.checked = false;
+                } else if ([...checkboxes].every(cb => cb.checked)) {
+                    everyDayCheckbox.checked = true;
+                }
+            });
+        });
+
+        // Ajuster le volume de l'alarme
+        const volumeControl = document.getElementById('volumeControl');
+        volumeControl.addEventListener('input', function() {
+            document.getElementById('alarmSound').volume = volumeControl.value;
+        });
+
+        // Appliquer la couleur d'affichage du bouton "Définir l'Alarme"
+        function applyColorSetting() {
+            const settings = JSON.parse(localStorage.getItem('settings')) || {};
+            const button = document.getElementById('setAlarmButton');
+            button.style.backgroundColor = settings.color || '#87CEEB'; // Couleur par défaut
+        }
+
+        document.addEventListener('DOMContentLoaded', applyColorSetting); // Appliquer la couleur lors du chargement
+    </script>
+
+    <div class="alarm-list-container">
+        <h2>Alarmes</h2>
+        <ul id="alarmList"></ul> <!-- Liste des alarmes -->
+    </div>
+    <audio id="alarmSound" src="alarm.mp3" preload="auto"></audio>
+	<script src="script1.js"></script>
+</body>
+</html>
